@@ -101,25 +101,27 @@
 
     document.getElementById('btnPagar').addEventListener('click', pagarConMercadoPago);
 
-async function pagarConMercadoPago() {
+    async function pagarConMercadoPago() {
   const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
   try {
     const response = await fetch('https://ferreteria-posta-production.up.railway.app/api/crear-preferencia', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ carrito })
-});
-
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ carrito })
+    });
 
     const data = await response.json();
+
+    console.log(data); // 👈 Agregamos este log para ver el error exacto en consola
+
     if (data.init_point) {
-      window.location.href = data.init_point; // Redirige al checkout
+      window.location.href = data.init_point;
     } else {
       alert('Hubo un problema al iniciar el pago.');
     }
   } catch (error) {
-    console.error(error);
+    console.error('Error de red o conexión:', error);
     alert('Error al conectar con Mercado Pago.');
   }
 }
