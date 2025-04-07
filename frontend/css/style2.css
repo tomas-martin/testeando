@@ -1,0 +1,228 @@
+body {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Header */
+  .main-header {
+    background-color: #add8ff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .login-button {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .site-title {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .cart-icon img {
+    width: 30px;
+  }
+  
+  /* Contenido del carrito */
+  .carrito-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .carrito-container h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+  }
+  
+  .producto-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  .producto-info {
+    flex: 1;
+    margin-left: 15px;
+  }
+  
+  .producto-info h2 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+  }
+  
+  .producto-info p {
+    margin: 4px 0;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .producto-imagen {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .cantidad-controles {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .cantidad-controles button {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .cantidad-controles button:hover {
+    background-color: #45a049;
+  }
+  
+  .cantidad-controles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .cantidad-controles button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    color: white;
+    width: 100px;
+  }
+  
+  .cantidad-controles button:nth-child(1) {
+    background-color: #2e7d32; /* Verde */
+  }
+  
+  .cantidad-controles button:nth-child(1):hover {
+    background-color: #1b5e20;
+  }
+  
+  .cantidad-controles button:nth-child(2) {
+    background-color: #c62828; /* Rojo oscuro */
+  }
+  
+  .cantidad-controles button:nth-child(2):hover {
+    background-color: #8e0000;
+  }
+  
+  .cantidad-controles .btn-eliminar {
+    background-color: #6d0202; /* Rojo fuerte */
+  }
+  
+  .cantidad-controles .btn-eliminar:hover {
+    background-color: #450000;
+  }
+  
+  .btn-eliminar {
+    background-color: #8B0000;
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .btn-eliminar:hover {
+    background-color: #a90000;
+  }
+  
+  /* Total */
+  .total-carrito {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  
+  .total-carrito span {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
+  .btn-proceder {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .btn-proceder:hover {
+    background-color: #45a049;
+  }
+  .producto-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    background: white;
+  }
+  
+  .producto-info {
+    flex: 1;
+    padding: 0 20px;
+  }
+  
+  .producto-imagen {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .btn-volver {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background-color: #2e7d32; /* Verde */
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin-left: 200px;
+  }
+  
+  .btn-volver:hover {
+    background-color: #1b5e20;
+  }
+  

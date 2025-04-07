@@ -3,111 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mi Carrito | FerreOnline</title>
-  <link rel="stylesheet" href="/frontend/css/style.css" />
+  <title>Carrito | FerreOnline</title>
+  <link rel="stylesheet" href="/frontend/css/style2.css" />
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="header-container">
-            <!-- Botón Iniciar Sesión -->
-            <a href="#" class="login-button">Iniciar Sesión</a>
-    
-            <!-- Título central -->
-            <h1 class="site-title" > <strong>FerreOnline</strong> </h1>
-    
-            <!-- Icono carrito -->
-            <a href="carrito.html" class="cart-icon">
-                <img src="/frontend/img/Icon.svg" alt="Carrito">
-            </a>
-        </div>
-    </header>
-    
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="#" class="login-button">Iniciar Sesión</a>
+      <h1 class="site-title"><strong>FerreOnline</strong></h1>
+      <a href="carrito.html" class="cart-icon">
+        <img src="/frontend/img/Icon.svg" alt="Carrito">
+      </a>
+    </div>
+  </header>
 
+  <!-- Contenedor del carrito -->
+  <div class="carrito-container">
+    <h1>Mi Carrito</h1>
+    <div id="productosCarrito"></div>
 
-  <h1> <strong> Mi Carrito</strong></h1>
-
-  <!-- Contenedor de productos -->
-  <div id="carrito-container" class="carrito-container">
-    <!-- Los productos se cargarán dinámicamente -->
+    <div class="total-carrito">
+      Total: <span id="totalCarrito">$0</span>
+      <br />
+      <button class="btn-proceder">Proceder</button>
+    </div>
   </div>
-
-  <!-- Total -->
-  <div class="carrito-total">
-    <strong>Total:</strong> <span id="totalCarrito">$0</span>
-    <button class="btn-proceder">Proceder</button>
+  <div>
+    <a href="index.html" class="btn-volver">← Volver </a>
   </div>
 
   <script>
-    function actualizarContadorCarrito() {
+    function actualizarCarrito() {
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const totalCantidad = carrito.reduce((sum, prod) => sum + prod.cantidad, 0);
-      document.getElementById('cart-count').textContent = totalCantidad;
-    }
+      const contenedor = document.getElementById('productosCarrito');
+      const totalCarrito = document.getElementById('totalCarrito');
 
-    function obtenerProductosCarrito() {
-      return JSON.parse(localStorage.getItem('carrito')) || [];
-    }
-
-    function renderizarCarrito() {
-      const container = document.getElementById('carrito-container');
-      const total = document.getElementById('totalCarrito');
-      const carrito = obtenerProductosCarrito();
-
-      container.innerHTML = '';
+      contenedor.innerHTML = '';
 
       if (carrito.length === 0) {
-        container.innerHTML = '<p>Tu carrito está vacío.</p>';
-        total.textContent = '$0';
+        contenedor.innerHTML = '<p>Tu carrito está vacío 🛒</p>';
+        totalCarrito.textContent = '$0';
         return;
       }
 
-      let totalCompra = 0;
+      let total = 0;
 
       carrito.forEach(producto => {
-        totalCompra += producto.precio * producto.cantidad;
-
-        container.innerHTML += `
-          <div class="carrito-item">
-            <div class="carrito-img" style="background-image: url('${producto.imagen}');"></div>
-            <div class="carrito-info">
-              <h3>${producto.nombre}</h3>
-              <p>${producto.descripcion}</p>
-              <span class="categoria">Herramientas</span>
-              <p class="precio"><strong>$${producto.precio.toLocaleString()}</strong></p>
-              <p>Unidades: ${producto.cantidad}</p>
-            </div>
-            <div class="carrito-actions">
-              <button onclick="modificarCantidad(${producto.id}, 1)">Agregar</button>
-              <button class="btn-eliminar" onclick="modificarCantidad(${producto.id}, -1)">Eliminar</button>
-            </div>
+        const productoElemento = document.createElement('div');
+        productoElemento.className = 'producto-carrito';
+        productoElemento.innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen" />
+          <div class="producto-info">
+            <h2>${producto.nombre}</h2>
+            <p>${producto.descripcion}</p>
+            <p><strong>Precio:</strong> $${producto.precio}</p>
+            <p><strong>Cantidad:</strong> ${producto.cantidad}</p>
+          </div>
+          <div class="cantidad-controles">
+            <button onclick="cambiarCantidad(${producto.id}, 1)">+</button>
+            <button onclick="cambiarCantidad(${producto.id}, -1)">-</button>
+            <button class="btn-eliminar" onclick="eliminarProducto(${producto.id})">Eliminar</button>
           </div>
         `;
+
+        contenedor.appendChild(productoElemento);
+        total += producto.precio * producto.cantidad;
       });
 
-      total.textContent = `$${totalCompra.toLocaleString()}`;
+      totalCarrito.textContent = `$${total.toLocaleString()}`;
     }
 
-    function modificarCantidad(idProducto, cantidadCambio) {
-      let carrito = obtenerProductosCarrito();
-      const productoIndex = carrito.findIndex(p => p.id === idProducto);
+    function cambiarCantidad(id, cambio) {
+      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const producto = carrito.find(p => p.id === id);
 
-      if (productoIndex !== -1) {
-        carrito[productoIndex].cantidad += cantidadCambio;
+      if (!producto) return;
 
-        if (carrito[productoIndex].cantidad <= 0) {
-          carrito.splice(productoIndex, 1);
-        }
-
+      producto.cantidad += cambio;
+      if (producto.cantidad <= 0) {
+        eliminarProducto(id);
+      } else {
         localStorage.setItem('carrito', JSON.stringify(carrito));
-        renderizarCarrito();
-        actualizarContadorCarrito();
+        actualizarCarrito();
       }
     }
 
-    // Ejecutamos al cargar la página
-    actualizarContadorCarrito();
-    renderizarCarrito();
+    function eliminarProducto(id) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito = carrito.filter(p => p.id !== id);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    actualizarCarrito();
   </script>
 
 </body>

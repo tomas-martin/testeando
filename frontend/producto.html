@@ -4,25 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Producto | FerreOnline</title>
-  <link rel="stylesheet" href="/frontend/css/style.css" />
+  <link rel="stylesheet" href="/frontend/css/style1.css" />
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="header-container">
-            <!-- Botón Iniciar Sesión -->
-            <a href="#" class="login-button">Iniciar Sesión</a>
-    
-            <!-- Título central -->
-            <h1 class="site-title" > <strong>FerreOnline</strong> </h1>
-    
-            <!-- Icono carrito -->
-            <a href="carrito.html" class="cart-icon">
-                <img src="/frontend/img/Icon.svg" alt="Carrito">
-            </a>
-        </div>
-    </header>
-    
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="#" class="login-button">Iniciar Sesión</a>
+      <h1 class="site-title"><strong>FerreOnline</strong></h1>
+      <a href="carrito.html" class="cart-icon">
+        <img src="/frontend/img/Icon.svg" alt="Carrito">
+      </a>
+    </div>
+  </header>
+
   <!-- Loader -->
   <div id="loader" class="loader">Cargando producto...</div>
 
@@ -46,6 +42,14 @@
       <button id="agregarCarrito" class="btn-carrito">Añadir al carrito</button>
     </div>
   </main>
+  <div>
+    <a href="index.html" class="btn-volver">← Volver </a>
+  </div>
+
+  
+
+
+
 
   <!-- Mensaje de error -->
   <div id="error" class="error-message" style="display: none;">Producto no encontrado o error de carga.</div>
@@ -54,10 +58,8 @@
     function actualizarContadorCarrito() {
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
       const totalCantidad = carrito.reduce((sum, prod) => sum + prod.cantidad, 0);
-      document.getElementById('cart-count').textContent = totalCantidad;
+      // Opcional: agregar contador visual en el icono del carrito si quieres
     }
-
-    actualizarContadorCarrito();
 
     async function cargarProducto() {
       const loader = document.getElementById('loader');
@@ -72,8 +74,7 @@
 
         if (!idProducto) throw new Error('ID del producto no especificado.');
 
-        // ✅ Fetch a la API real que vamos a conectar en Railway
-        const response = await fetch(`https://tu-backend-railway.com/api/productos/${idProducto}`);
+        const response = await fetch(`https://ferreteria-posta-production.up.railway.app/api/productos/${idProducto}`);
 
         if (!response.ok) throw new Error('Producto no encontrado.');
 
@@ -125,6 +126,7 @@
       actualizarContadorCarrito();
     }
 
+    // Ejecutar carga inicial
     cargarProducto();
   </script>
 
