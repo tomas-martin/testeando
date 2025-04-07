@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Carrito | FerreOnline</title>
+  <link rel="stylesheet" href="/frontend/css/style.css" />
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Botón Iniciar Sesión -->
+            <a href="#" class="login-button">Iniciar Sesión</a>
+    
+            <!-- Título central -->
+            <h1 class="site-title" > <strong>FerreOnline</strong> </h1>
+    
+            <!-- Icono carrito -->
+            <a href="carrito.html" class="cart-icon">
+                <img src="/frontend/img/Icon.svg" alt="Carrito">
+            </a>
+        </div>
+    </header>
+    
+
+
+  <h1> <strong> Mi Carrito</strong></h1>
+
+  <!-- Contenedor de productos -->
+  <div id="carrito-container" class="carrito-container">
+    <!-- Los productos se cargarán dinámicamente -->
+  </div>
+
+  <!-- Total -->
+  <div class="carrito-total">
+    <strong>Total:</strong> <span id="totalCarrito">$0</span>
+    <button class="btn-proceder">Proceder</button>
+  </div>
+
+  <script>
+    function actualizarContadorCarrito() {
+      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const totalCantidad = carrito.reduce((sum, prod) => sum + prod.cantidad, 0);
+      document.getElementById('cart-count').textContent = totalCantidad;
+    }
+
+    function obtenerProductosCarrito() {
+      return JSON.parse(localStorage.getItem('carrito')) || [];
+    }
+
+    function renderizarCarrito() {
+      const container = document.getElementById('carrito-container');
+      const total = document.getElementById('totalCarrito');
+      const carrito = obtenerProductosCarrito();
+
+      container.innerHTML = '';
+
+      if (carrito.length === 0) {
+        container.innerHTML = '<p>Tu carrito está vacío.</p>';
+        total.textContent = '$0';
+        return;
+      }
+
+      let totalCompra = 0;
+
+      carrito.forEach(producto => {
+        totalCompra += producto.precio * producto.cantidad;
+
+        container.innerHTML += `
+          <div class="carrito-item">
+            <div class="carrito-img" style="background-image: url('${producto.imagen}');"></div>
+            <div class="carrito-info">
+              <h3>${producto.nombre}</h3>
+              <p>${producto.descripcion}</p>
+              <span class="categoria">Herramientas</span>
+              <p class="precio"><strong>$${producto.precio.toLocaleString()}</strong></p>
+              <p>Unidades: ${producto.cantidad}</p>
+            </div>
+            <div class="carrito-actions">
+              <button onclick="modificarCantidad(${producto.id}, 1)">Agregar</button>
+              <button class="btn-eliminar" onclick="modificarCantidad(${producto.id}, -1)">Eliminar</button>
+            </div>
+          </div>
+        `;
+      });
+
+      total.textContent = `$${totalCompra.toLocaleString()}`;
+    }
+
+    function modificarCantidad(idProducto, cantidadCambio) {
+      let carrito = obtenerProductosCarrito();
+      const productoIndex = carrito.findIndex(p => p.id === idProducto);
+
+      if (productoIndex !== -1) {
+        carrito[productoIndex].cantidad += cantidadCambio;
+
+        if (carrito[productoIndex].cantidad <= 0) {
+          carrito.splice(productoIndex, 1);
+        }
+
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        renderizarCarrito();
+        actualizarContadorCarrito();
+      }
+    }
+
+    // Ejecutamos al cargar la página
+    actualizarContadorCarrito();
+    renderizarCarrito();
+  </script>
+
+</body>
+</html>

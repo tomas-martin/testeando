@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Producto | FerreOnline</title>
+  <link rel="stylesheet" href="/frontend/css/style.css" />
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Botón Iniciar Sesión -->
+            <a href="#" class="login-button">Iniciar Sesión</a>
+    
+            <!-- Título central -->
+            <h1 class="site-title" > <strong>FerreOnline</strong> </h1>
+    
+            <!-- Icono carrito -->
+            <a href="carrito.html" class="cart-icon">
+                <img src="/frontend/img/Icon.svg" alt="Carrito">
+            </a>
+        </div>
+    </header>
+    
+  <!-- Loader -->
+  <div id="loader" class="loader">Cargando producto...</div>
+
+  <!-- Contenido del producto -->
+  <main id="producto-container" class="producto-container" style="display: none;">
+    <div class="imagen-producto" id="imagenProducto"></div>
+    <div class="info-producto">
+      <h1 id="nombreProducto">Nombre del Producto</h1>
+      <p id="precioProducto"><strong>$0</strong></p>
+      <p id="descripcionProducto">Descripción del producto...</p>
+
+      <div class="cantidad-select">
+        <label for="cantidad">Cantidad:</label>
+        <select id="cantidad">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+
+      <button id="agregarCarrito" class="btn-carrito">Añadir al carrito</button>
+    </div>
+  </main>
+
+  <!-- Mensaje de error -->
+  <div id="error" class="error-message" style="display: none;">Producto no encontrado o error de carga.</div>
+
+  <script>
+    function actualizarContadorCarrito() {
+      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const totalCantidad = carrito.reduce((sum, prod) => sum + prod.cantidad, 0);
+      document.getElementById('cart-count').textContent = totalCantidad;
+    }
+
+    actualizarContadorCarrito();
+
+    async function cargarProducto() {
+      const loader = document.getElementById('loader');
+      const error = document.getElementById('error');
+      const contenedor = document.getElementById('producto-container');
+
+      try {
+        loader.style.display = 'block';
+
+        const params = new URLSearchParams(window.location.search);
+        const idProducto = params.get('id');
+
+        if (!idProducto) throw new Error('ID del producto no especificado.');
+
+        // ✅ Fetch a la API real que vamos a conectar en Railway
+        const response = await fetch(`https://tu-backend-railway.com/api/productos/${idProducto}`);
+
+        if (!response.ok) throw new Error('Producto no encontrado.');
+
+        const producto = await response.json();
+
+        document.getElementById('imagenProducto').style.backgroundImage = `url('${producto.imagen}')`;
+        document.getElementById('imagenProducto').style.backgroundSize = 'cover';
+        document.getElementById('imagenProducto').style.backgroundPosition = 'center';
+        document.getElementById('nombreProducto').textContent = producto.nombre;
+        document.getElementById('precioProducto').innerHTML = `<strong>$${producto.precio}</strong>`;
+        document.getElementById('descripcionProducto').textContent = producto.descripcion;
+
+        loader.style.display = 'none';
+        contenedor.style.display = 'flex';
+
+        document.getElementById('agregarCarrito').addEventListener('click', function () {
+          agregarProductoAlCarrito(producto);
+        });
+
+      } catch (err) {
+        console.error(err);
+        loader.style.display = 'none';
+        error.style.display = 'block';
+      }
+    }
+
+    function agregarProductoAlCarrito(producto) {
+      const cantidadSeleccionada = parseInt(document.getElementById('cantidad').value, 10);
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+      const productoExistente = carrito.find(p => p.id === producto.id);
+
+      if (productoExistente) {
+        productoExistente.cantidad += cantidadSeleccionada;
+      } else {
+        carrito.push({
+          id: producto.id,
+          nombre: producto.nombre,
+          precio: producto.precio,
+          descripcion: producto.descripcion,
+          imagen: producto.imagen,
+          cantidad: cantidadSeleccionada
+        });
+      }
+
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+
+      alert('Producto añadido al carrito!');
+      actualizarContadorCarrito();
+    }
+
+    cargarProducto();
+  </script>
+
+</body>
+</html>
