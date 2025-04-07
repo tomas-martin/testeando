@@ -7,29 +7,31 @@ body {
   
   /* Header */
   .main-header {
-    background-color: #add8ff;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-image: url('https://orion91.com/blog/wp-content/uploads/2021/04/herramientas_bricolaje_orion91_1-1920x550.jpg');
+    padding: 20px;
+    text-align: center;
+   
+    
   }
+
   
   .header-container {
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
-  .login-button {
+  .login-button,
+  .cart-icon img {
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
+    color: #ffffff;
   }
   
   .site-title {
     font-size: 24px;
-    color: #333;
+    color: #ffffff;
   }
   
   .cart-icon img {
@@ -226,3 +228,29 @@ body {
     background-color: #1b5e20;
   }
   
+  /* Responsive */
+@media (max-width: 768px) {
+  .producto-carrito {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .producto-info {
+    text-align: center;
+  }
+
+  .header-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .total-carrito {
+    text-align: center;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
