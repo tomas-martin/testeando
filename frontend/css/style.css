@@ -245,7 +245,7 @@ footer {
 }
 /* pagina Index */
 .main-header {
-  background-image: url('/frontend/img/herramientas.jpg'); /* Fondo herramientas */
+  background-image: url('https://orion91.com/blog/wp-content/uploads/2021/04/herramientas_bricolaje_orion91_1-1920x550.jpg'); /* Fondo herramientas */
   background-size: cover;
   background-position: center;
   height: 300px;
