@@ -22,31 +22,27 @@ app.use('/api/productos', productosRoutes);
 // 🧩 Ruta para crear preferencia de pago
 app.post('/api/crear-preferencia', async (req, res) => {
   try {
-    console.log('Body recibido:', req.body);
-
     const { carrito } = req.body;
 
-    if (!carrito || !Array.isArray(carrito) || carrito.length === 0) {
-      return res.status(400).json({ error: 'El carrito está vacío o no es válido.' });
-    }
-
     const items = carrito.map(item => ({
-      title: item.nombre,
+      title: item.nombre.trim(),
       unit_price: Number(item.precio),
       quantity: Number(item.cantidad),
       currency_id: 'ARS',
     }));
 
-    console.log('Items procesados para Mercado Pago:', items);
+    console.log('Items que vamos a enviar a Mercado Pago:', items);
 
     const preference = await preferenceClient.create({
-      items,
-      back_urls: {
-        success: 'https://tu-sitio.vercel.app/success.html',
-        failure: 'https://tu-sitio.vercel.app/failure.html',
-        pending: 'https://tu-sitio.vercel.app/pending.html',
-      },
-      auto_return: 'approved',
+      body: {
+        items,
+        back_urls: {
+          success: 'https://ferreteria-posta-m8x9.vercel.app/success.html',
+          failure: 'https://ferreteria-posta-m8x9.vercel.app/failure.html',
+          pending: 'https://ferreteria-posta-m8x9.vercel.app/pending.html',
+        },
+        auto_return: 'approved',
+      }
     });
 
     console.log('Preference creada:', preference);
