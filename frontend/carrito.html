@@ -111,10 +111,11 @@
 
       // Limpiamos datos del carrito antes de enviar
       const carritoLimpio = carrito.map(item => ({
-        nombre: item.nombre,
-        precio: Number(item.precio),
-        cantidad: Number(item.cantidad),
-      }));
+  nombre: item.nombre.trim(),
+  precio: Number(item.precio),
+  cantidad: Number(item.cantidad),
+}));
+
 
       console.log('Carrito limpio a enviar:', carritoLimpio);
 
