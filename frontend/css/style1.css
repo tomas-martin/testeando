@@ -5,16 +5,27 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fff;
-    color: #fff;
+    color: #474646;
   }
   
   .main-header {
     background-image: url('https://orion91.com/blog/wp-content/uploads/2021/04/herramientas_bricolaje_orion91_1-1920x550.jpg');
     padding: 20px;
     text-align: center;
+   
+    
   }
 
+  .main-header::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+   
+    background-color: rgba(0, 0, 0, 0.5); /* Cambiás este valor para oscurecer más o menos */
+    z-index: 1;
+  }
   
+ 
   
   .header-container {
     display: flex;
@@ -23,6 +34,8 @@ body {
     max-width: 1200px;
     margin: 0 auto;
   }
+
+  
   
   .login-button,
   .cart-icon img {
