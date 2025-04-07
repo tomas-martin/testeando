@@ -44,8 +44,8 @@ app.post('/api/crear-preferencia', async (req, res) => {
 
     res.json({ init_point: preference.init_point });
   } catch (error) {
-    console.error('Error al crear preferencia:', error);
-    res.status(500).json({ error: 'Error al crear la preferencia de pago.' });
+    console.error('Error al crear preferencia:', error.response ? error.response.data : error.message);
+    res.status(500).json({ error: error.response ? error.response.data : error.message });
   }
 });
 
