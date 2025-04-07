@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import productosRoutes from './routes/productos.js';
-import mercadopago from 'mercadopago';
+import { MercadoPagoConfig, Preference } from 'mercadopago';
 
 dotenv.config();
 
@@ -12,14 +12,14 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-mercadopago.configure({
-  access_token: process.env.MP_ACCESS_TOKEN, // lo vamos a cargar en Railway como variable
-});
+// ✅ Configuración MercadoPago
+const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
+const preferenceClient = new Preference(client);
 
-// Rutas
+// 🛒 Rutas de productos
 app.use('/api/productos', productosRoutes);
 
-// 🧩 Nueva ruta para Mercado Pago
+// 🧩 Ruta para crear preferencia de pago
 app.post('/api/crear-preferencia', async (req, res) => {
   try {
     const { carrito } = req.body;
@@ -31,7 +31,7 @@ app.post('/api/crear-preferencia', async (req, res) => {
       currency_id: 'ARS',
     }));
 
-    const preference = await mercadopago.preferences.create({
+    const preference = await preferenceClient.create({
       items,
       back_urls: {
         success: 'https://tu-sitio.vercel.app/success.html',
@@ -41,13 +41,14 @@ app.post('/api/crear-preferencia', async (req, res) => {
       auto_return: 'approved',
     });
 
-    res.json({ init_point: preference.body.init_point });
+    res.json({ init_point: preference.init_point });
   } catch (error) {
     console.error('Error al crear preferencia:', error);
     res.status(500).json({ error: 'Error al crear la preferencia de pago.' });
   }
 });
 
+// Ruta base
 app.get('/', (req, res) => {
   res.send('API de FerreOnline funcionando 🎉');
 });
