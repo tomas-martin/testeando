@@ -34,7 +34,6 @@
     <a href="index.html" class="btn-volver">← Volver </a>
   </div>
 
-  <!-- Script unificado -->
   <script>
     function actualizarCarrito() {
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -98,14 +97,32 @@
       actualizarCarrito();
     }
 
+    actualizarCarrito();
+
+    document.getElementById('btnPagar').addEventListener('click', pagarConMercadoPago);
+
     async function pagarConMercadoPago() {
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+      if (!carrito.length) {
+        alert('Tu carrito está vacío. Agrega productos antes de pagar.');
+        return;
+      }
+
+      // Limpiamos datos del carrito antes de enviar
+      const carritoLimpio = carrito.map(item => ({
+        nombre: item.nombre,
+        precio: Number(item.precio),
+        cantidad: Number(item.cantidad),
+      }));
+
+      console.log('Carrito limpio a enviar:', carritoLimpio);
 
       try {
         const response = await fetch('https://ferreteria-posta-production.up.railway.app/api/crear-preferencia', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ carrito })
+          body: JSON.stringify({ carrito: carritoLimpio })
         });
 
         const data = await response.json();
@@ -121,12 +138,6 @@
         alert('Error al conectar con Mercado Pago.');
       }
     }
-
-    // ✅ Evento cargar carrito
-    actualizarCarrito();
-
-    // ✅ Vinculamos el botón de pagar correctamente después de definir la función
-    document.getElementById('btnPagar').addEventListener('click', pagarConMercadoPago);
   </script>
 
 </body>
