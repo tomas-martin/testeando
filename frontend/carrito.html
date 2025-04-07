@@ -27,7 +27,7 @@
     <div class="total-carrito">
       Total: <span id="totalCarrito">$0</span>
       <br />
-      <button class="btn-proceder">Proceder</button>
+      <button id="btnPagar" class="proceder-btn">Proceder</button>
     </div>
   </div>
   <div>
@@ -98,6 +98,34 @@
     }
 
     actualizarCarrito();
+
+    document.getElementById('btnPagar').addEventListener('click', pagarConMercadoPago);
+
+async function pagarConMercadoPago() {
+  const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+  try {
+    const response = await fetch('ferreteria-posta-production.up.railway.app', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ carrito })
+    });
+
+    const data = await response.json();
+    if (data.init_point) {
+      window.location.href = data.init_point; // Redirige al checkout
+    } else {
+      alert('Hubo un problema al iniciar el pago.');
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Error al conectar con Mercado Pago.');
+  }
+}
+
+
+
+
   </script>
 
 </body>
