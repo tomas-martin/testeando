@@ -105,11 +105,12 @@ async function pagarConMercadoPago() {
   const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
   try {
-    const response = await fetch('ferreteria-posta-production.up.railway.app', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ carrito })
-    });
+    const response = await fetch('https://ferreteria-posta-production.up.railway.app/api/crear-preferencia', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ carrito })
+});
+
 
     const data = await response.json();
     if (data.init_point) {
