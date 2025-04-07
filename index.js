@@ -35,10 +35,10 @@ app.post('/api/crear-preferencia', async (req, res) => {
     const preference = await preferenceClient.create({
       items,
       back_urls: {
-        success: 'https://tu-sitio.vercel.app/success.html',
-        failure: 'https://tu-sitio.vercel.app/failure.html',
-        pending: 'https://tu-sitio.vercel.app/pending.html',
-      },
+        success: 'https://ferreteria-posta-m8x9.vercel.app/success.html',
+        failure: 'https://ferreteria-posta-m8x9.vercel.app/failure.html',
+        pending: 'https://ferreteria-posta-m8x9.vercel.app/pending.html',
+      },      
       auto_return: 'approved',
     });
 
