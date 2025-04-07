@@ -26,10 +26,11 @@ app.post('/api/crear-preferencia', async (req, res) => {
 
     const items = carrito.map(item => ({
       title: item.nombre,
-      unit_price: item.precio,
+      unit_price: Number(item.precio), // 👈 Convertimos a número por seguridad
       quantity: item.cantidad,
       currency_id: 'ARS',
     }));
+    
 
     const preference = await preferenceClient.create({
       items,
