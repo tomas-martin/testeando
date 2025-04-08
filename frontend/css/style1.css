@@ -1,252 +1,166 @@
-/* producto.css */
+/* ========== RESET GENERAL ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    color: #474646;
-  }
-  
-  .main-header {
-    background-image: url('https://orion91.com/blog/wp-content/uploads/2021/04/herramientas_bricolaje_orion91_1-1920x550.jpg');
-    padding: 20px;
-    text-align: center;
-   
-    
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #474646;
+  overflow-x: hidden;
+}
+
+/* ========== HEADER ========== */
+.main-header {
+  background-image: url('https://orion91.com/blog/wp-content/uploads/2021/04/herramientas_bricolaje_orion91_1-1920x550.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.main-header::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.header-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.login-button {
+  text-decoration: none;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.cart-icon img {
+  width: 30px;
+  filter: invert(100%);
+}
+
+/* ========== CONTENIDO DEL PRODUCTO ========== */
+.producto-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.imagen-producto {
+  width: 100%;
+  max-width: 500px;
+  height: 400px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+}
+
+.info-producto {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.info-producto h2 {
+  font-size: 24px;
+}
+
+.info-producto p strong {
+  font-size: 24px;
+  color: #222;
+}
+
+.info-producto p {
+  font-size: 14px;
+  color: #555;
+}
+
+.info-producto label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.info-producto select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.info-producto button {
+  background-color: #333;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.info-producto button:hover {
+  background-color: #555;
+}
+
+/* ========== BOTÓN VOLVER ========== */
+.btn-volver {
+  display: block;
+  width: 90%;
+  max-width: 300px;
+  margin: 30px auto;
+  padding: 12px 20px;
+  background-color: #2c5234;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.btn-volver:hover {
+  background-color: #1b5e20;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20px;
   }
 
-  .main-header::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-   
-    background-color: rgba(0, 0, 0, 0.5); /* Cambiás este valor para oscurecer más o menos */
-    z-index: 1;
-  }
-  
- 
-  
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  
-  .login-button,
-  .cart-icon img {
-    text-decoration: none;
-    color: #ffffff;
-  }
-  
-  .cart-icon img {
-    width: 30px;
-  }
-  
   .producto-container {
-    display: flex;
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
-    gap: 40px;
-  }
-  
-  .imagen-producto {
-    flex: 1;
-    background-color: #ddd;
-    height: 400px;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .info-producto {
-    flex: 1;
-    display: flex;
     flex-direction: column;
-    gap: 15px;
-  }
-  
-  .cantidad-select {
-    margin: 20px 0;
-  }
-  
-  .btn-carrito {
-    background-color: #f5f5f5;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .loader,
-  .error-message {
     text-align: center;
-    margin-top: 50px;
   }
-  .btn-volver {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    background-color: #2e7d32; /* Verde */
-    color: white;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    margin-left: 1200px;
-    
-  }
-  
-  .btn-volver:hover {
-    background-color: #1b5e20;
-  }
-  /* Contenedor general del producto */
-.producto-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    padding: 40px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  /* Imagen del producto */
-  .imagen-producto {
-    width: 300px;
-    height: 400px;
-    background-color: #e0e0e0;
-    border-radius: 8px;
-  }
-  
-  /* Info del producto */
+
   .info-producto {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  /* Nombre del producto */
-  .info-producto h1 {
-    font-size: 24px;
-    margin: 0;
-  }
-  
-  /* Precio del producto */
-  .info-producto p#precioProducto {
-    font-size: 28px;
-    font-weight: bold;
-    margin: 0;
-  }
-  
-  /* Descripción breve */
-  .info-producto p#descripcionProducto {
-    color: #555;
-    font-size: 14px;
-  }
-  
-  /* Selectores */
-  .cantidad-select label {
-    margin-right: 10px;
-    font-weight: 500;
-  }
-  
-  .cantidad-select select {
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background-color: white;
-    font-size: 14px;
-    width: 150px;
-  }
-  
-  /* Botón añadir al carrito */
-  .btn-carrito {
-    background-color: #333;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
-    width: 100%;
-  }
-  
-  .btn-carrito:hover {
-    background-color: #555;
-  }
-  
-  /* Tarjeta de descripción */
-  .product-description {
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 16px;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  }
-  
-  .description-header {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 8px;
-  }
-  
-  .description-title {
-    font-size: 16px;
-  }
-  
-  .description-content {
-    color: #555;
-    font-size: 14px;
-  }
-  
-  /* Botón volver */
-  .back-btn-container {
-    margin-top: 20px;
-  }
-  
-  .back-btn {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s;
-  }
-  
-  .back-btn:hover {
-    background-color: #555;
-  }
-  
-  /* Responsive */
-  .boton-volver {
-    display: block;
-    margin: 20px auto;
-    padding: 12px 20px;
-    background-color: #2c5234;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
     text-align: center;
-    width: 80%;
-    max-width: 300px;
   }
-  
-  @media (max-width: 768px) {
-    .boton-volver {
-      width: 90%;
-      font-size: 16px;
-    }
-  }
-  body {
-    overflow-x: hidden;
-  }
-  
+}
