@@ -37,9 +37,9 @@ app.post('/api/crear-preferencia', async (req, res) => {
       body: {
         items,
         back_urls: {
-          success: 'https://ferreteria-posta-m8x9.vercel.app/success.html',
-          failure: 'https://ferreteria-posta-m8x9.vercel.app/failure.html',
-          pending: 'https://ferreteria-posta-m8x9.vercel.app/pending.html',
+          success: 'https://ferreonline.vercel.app/success.html',
+          failure: 'https://ferreonline.vercel.app/failure.html',
+          pending: 'https://ferreonline.vercel.app/pending.html',
         },
         auto_return: 'approved',
       }
