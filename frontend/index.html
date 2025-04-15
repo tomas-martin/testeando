@@ -42,7 +42,7 @@
   <script>
     async function cargarProductos() {
       try {
-        const response = await fetch('https://ferreteria-posta-production.up.railway.app/api/productos');
+        const response = await fetch('ferreonline-production.up.railway.app/api/productos');
         const productos = await response.json();
 
         const fila1 = document.getElementById('productosFila1');
