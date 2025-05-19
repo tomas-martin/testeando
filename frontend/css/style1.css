@@ -70,7 +70,7 @@ body {
   top: 20px;
   right: 20px;
   padding: 15px;
-  background-color: rgba(0, 128, 0, 0.8); /* Fondo verde con opacidad */
+  background-color: rgba(37, 230, 20, 0.8); /* Fondo rojo con opacidad */
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -79,7 +79,10 @@ body {
   z-index: 1000;
   opacity: 0; /* Inicia con opacidad 0 */
   transform: translateY(50px); /* Comienza más abajo */
-  transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Suavizamos la opacidad y el deslizamiento */
+  transition: opacity 10s ease-in-out, transform 10s ease-in-out; /* Suavizamos la opacidad y el deslizamiento */
+  max-width: 90%; /* Limitar el ancho */
+  max-height: 40px; /* Limitar la altura máxima */
+  overflow: hidden; /* Asegurarnos de que el texto largo no desborde */
 }
 
 /* Animación de aparición (sube desde abajo) */
@@ -108,6 +111,7 @@ body {
     bottom: 20px; /* Lo muestra más abajo para que no interfiera con el contenido */
     font-size: 14px; /* Tamaño más pequeño */
     padding: 12px; /* Menos espacio alrededor */
+    max-width: 80%;  /* Ajustar el ancho para pantallas pequeñas */
   }
 }
 
