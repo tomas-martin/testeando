@@ -13,6 +13,21 @@ body {
   min-height: 100vh;
 }
 
+
+
+.contador {
+  position: absolute;
+  top: -5px;
+  right: -25px;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(255, 255, 255);
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
 header {
   background-color: #a4d0fb;
   padding: 15px 40px;
@@ -470,7 +485,7 @@ body {
 
 .producto-carrito {
   display: flex;
-  background: #f5f5f5;
+  background: #ffffff;
   border: 1px solid #ddd;
   margin-bottom: 20px;
   padding: 20px;

@@ -4,7 +4,26 @@
   padding: 0;
   box-sizing: border-box;
 }
+.site-title {
+  color: #fff;
+}
 
+
+.contador {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#agregarCarrito{
+  background-color: #728b2c;
+}
 body {
   font-family: Arial, sans-serif;
   background-color: #fff;
@@ -18,7 +37,7 @@ body {
   background-size: cover;
   background-position: center;
   position: relative;
-  padding: 20px 0;
+  padding: 60px 0;
   text-align: center;
 }
 
@@ -43,6 +62,59 @@ body {
   padding: 0 20px;
 }
 
+
+/* Estilo para la notificación */
+.alert {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px;
+  background-color: rgba(0, 128, 0, 0.8); /* Fondo verde con opacidad */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  opacity: 0; /* Inicia con opacidad 0 */
+  transform: translateY(50px); /* Comienza más abajo */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Suavizamos la opacidad y el deslizamiento */
+}
+
+/* Animación de aparición (sube desde abajo) */
+.alert.show {
+  display: block;
+  opacity: 1; /* Hace que la notificación sea visible */
+  transform: translateY(0); /* Desliza la notificación a su posición original */
+}
+
+/* Animación de desaparición (se desliza hacia abajo y se desvanece) */
+@keyframes slideOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(50px); /* Se desliza hacia abajo */
+  }
+}
+
+/* Responsividad: Asegura que la notificación no sea demasiado grande en pantallas pequeñas */
+@media (max-width: 768px) {
+  .alert {
+    right: 10px;  /* Menor margen a la derecha */
+    bottom: 20px; /* Lo muestra más abajo para que no interfiera con el contenido */
+    font-size: 14px; /* Tamaño más pequeño */
+    padding: 12px; /* Menos espacio alrededor */
+  }
+}
+
+
+
+
+
 .login-button {
   text-decoration: none;
   color: white;
@@ -50,6 +122,9 @@ body {
   padding: 5px 10px;
   border-radius: 4px;
   font-size: 14px;
+    position:sticky;
+
+  transition: transform 0.5s ease;
 }
 
 .cart-icon img {

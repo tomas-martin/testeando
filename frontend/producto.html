@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Producto | FerreOnline</title>
- <link rel="stylesheet" href="./css/style1.css">
+  <link rel="stylesheet" href="./css/style1.css">
+ 
 </head>
 <body>
 
@@ -15,6 +16,7 @@
       <h1 class="site-title"><strong>FerreOnline</strong></h1>
       <a href="carrito.html" class="cart-icon">
         <img src="./img/Icon.svg" alt="Carrito">
+        <span id="contadorCarrito" class="contador"></span>
       </a>
     </div>
   </header>
@@ -46,10 +48,10 @@
     <a href="index.html" class="btn-volver">← Volver </a>
   </div>
 
-  
-
-
-
+  <!-- Notificación personalizada -->
+  <div id="customAlert" class="alert">
+    <span id="alertMessage">Producto añadido al carrito!</span>
+  </div>
 
   <!-- Mensaje de error -->
   <div id="error" class="error-message" style="display: none;">Producto no encontrado o error de carga.</div>
@@ -58,7 +60,35 @@
     function actualizarContadorCarrito() {
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
       const totalCantidad = carrito.reduce((sum, prod) => sum + prod.cantidad, 0);
-      // Opcional: agregar contador visual en el icono del carrito si quieres
+
+      // Actualizar el contador visual en el icono del carrito
+      const contadorCarrito = document.getElementById('contadorCarrito');
+      if (contadorCarrito) {
+        contadorCarrito.textContent = totalCantidad > 0 ? totalCantidad : '';
+      }
+    }
+
+    // Función para mostrar la notificación personalizada
+    function mostrarNotificacion(mensaje) {
+      const alertElement = document.getElementById('customAlert');
+      const alertMessage = document.getElementById('alertMessage');
+      
+      // Establecer el mensaje
+      alertMessage.textContent = mensaje;
+      
+      // Mostrar la notificación
+      alertElement.classList.add('show');
+
+      // Después de 3 segundos, aplicar la animación de desaparición
+      setTimeout(() => {
+        alertElement.classList.remove('show');
+        alertElement.style.animation = 'slideOut 1s ease forwards'; // Añadir animación de salida
+      }, 3000);
+
+      // Reiniciar la animación de salida al volver a mostrar la notificación
+      alertElement.addEventListener('animationend', () => {
+        alertElement.style.animation = ''; // Restablecer la animación
+      });
     }
 
     async function cargarProducto() {
@@ -122,9 +152,15 @@
 
       localStorage.setItem('carrito', JSON.stringify(carrito));
 
-      alert('Producto añadido al carrito!');
+      // Mostrar la notificación personalizada
+      mostrarNotificacion('Producto añadido al carrito!');
       actualizarContadorCarrito();
     }
+
+    // Al cargar la página, actualizar el contador del carrito
+    document.addEventListener('DOMContentLoaded', () => {
+      actualizarContadorCarrito();
+    });
 
     // Ejecutar carga inicial
     cargarProducto();

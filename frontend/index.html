@@ -15,6 +15,7 @@
       <h1 class="site-title"><strong>FerreOnline</strong></h1>
       <a href="carrito.html" class="cart-icon">
         <img src="./img/Icon.svg" alt="Carrito">
+        <span id="contadorCarrito" class="contador"></span>
       </a>
     </div>
   </header>
@@ -25,6 +26,23 @@
     <div class="fila-productos fila-borde" id="productosFila1"></div>
     <div class="fila-productos fila-borde" id="productosFila2"></div>
   </section>
+
+
+
+  <script>
+    function actualizarContadorCarrito() {
+      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const totalCantidad = carrito.reduce((sum, prod) => sum + prod.cantidad, 0);
+
+    // Actualizar el contador visual en el icono del carrito
+      const contadorCarrito = document.getElementById('contadorCarrito');
+         if (contadorCarrito) {
+            contadorCarrito.textContent = totalCantidad > 0 ? totalCantidad : '';
+        }
+}
+  </script>
+
+
 
   <!-- Footer -->
   <footer>
@@ -70,6 +88,12 @@
         </a>
       `;
     }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+            actualizarContadorCarrito();
+        });
+
 
     // Ejecutar la carga de productos al cargar la página
     cargarProductos();

@@ -8,13 +8,76 @@ body {
   /* Header */
   .main-header {
     background-image: url('https://orion91.com/blog/wp-content/uploads/2021/04/herramientas_bricolaje_orion91_1-1920x550.jpg');
-    padding: 20px;
+    padding: 50px;
     text-align: center;
-   
-    
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://orion91.com/blog/wp-content/uploads/2021/04/herramientas_bricolaje_orion91_1-1920x550.jpg');
+
   }
 
+  .contador {
+  position: absolute;
+  top: -5px;
+  right: -25px;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(255, 255, 255);
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
   
+ /* Estilo para la notificación */
+    .alert {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px;
+      background-color: rgba(255, 0, 0, 0.8); /* Fondo rojo con opacidad */
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      opacity: 0; /* Inicia con opacidad 0 */
+      transform: translateY(50px); /* Comienza más abajo */
+      transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Suavizamos la opacidad y el deslizamiento */
+    }
+
+    /* Animación de aparición (sube desde abajo) */
+    .alert.show {
+      display: block;
+      opacity: 1; /* Hace que la notificación sea visible */
+      transform: translateY(0); /* Desliza la notificación a su posición original */
+    }
+
+    /* Animación de desaparición (se desliza hacia abajo y se desvanece) */
+    @keyframes slideOut {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(50px); /* Se desliza hacia abajo */
+      }
+    }
+
+    /* Responsividad: Asegura que la notificación no sea demasiado grande en pantallas pequeñas */
+    @media (max-width: 768px) {
+      .alert {
+        right: 10px;  /* Menor margen a la derecha */
+        bottom: 20px; /* Lo muestra más abajo para que no interfiera con el contenido */
+        font-size: 14px; /* Tamaño más pequeño */
+        padding: 12px; /* Menos espacio alrededor */
+      }
+    }
+
+
+
+
   .header-container {
     display: flex;
     justify-content: space-between;
@@ -30,7 +93,7 @@ body {
   }
   
   .site-title {
-    font-size: 24px;
+    font-size: 44px;
     color: #ffffff;
   }
   
@@ -76,7 +139,7 @@ body {
   
   .producto-info p {
     margin: 4px 0;
-    color: #666;
+    color: #000000;
     font-size: 14px;
   }
   

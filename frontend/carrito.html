@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carrito | FerreOnline</title>
   <link rel="stylesheet" href="./css/style2.css">
+  
+  
 </head>
 <body>
 
@@ -32,6 +34,11 @@
   </div>
   <div>
     <a href="index.html" class="btn-volver">← Volver </a>
+  </div>
+
+  <!-- Notificación personalizada para eliminar producto -->
+  <div id="customAlert" class="alert">
+    <span id="alertMessage">Producto eliminado del carrito!</span>
   </div>
 
   <script>
@@ -94,7 +101,33 @@
       let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
       carrito = carrito.filter(p => p.id !== id);
       localStorage.setItem('carrito', JSON.stringify(carrito));
+      
+      // Mostrar la notificación personalizada para eliminar
+      mostrarNotificacion('Producto eliminado del carrito!');
       actualizarCarrito();
+    }
+
+    // Función para mostrar la notificación personalizada
+    function mostrarNotificacion(mensaje) {
+      const alertElement = document.getElementById('customAlert');
+      const alertMessage = document.getElementById('alertMessage');
+      
+      // Establecer el mensaje
+      alertMessage.textContent = mensaje;
+      
+      // Mostrar la notificación
+      alertElement.classList.add('show');
+
+      // Después de 3 segundos, aplicar la animación de desaparición
+      setTimeout(() => {
+        alertElement.classList.remove('show');
+        alertElement.style.animation = 'slideOut 1s ease forwards'; // Añadir animación de salida
+      }, 3000);
+
+      // Reiniciar la animación de salida al volver a mostrar la notificación
+      alertElement.addEventListener('animationend', () => {
+        alertElement.style.animation = ''; // Restablecer la animación
+      });
     }
 
     actualizarCarrito();
@@ -111,16 +144,15 @@
 
       // Limpiamos datos del carrito antes de enviar
       const carritoLimpio = carrito.map(item => ({
-  nombre: item.nombre.trim(),
-  precio: Number(item.precio),
-  cantidad: Number(item.cantidad),
-}));
-
+        nombre: item.nombre.trim(),
+        precio: Number(item.precio),
+        cantidad: Number(item.cantidad),
+      }));
 
       console.log('Carrito limpio a enviar:', carritoLimpio);
 
       try {
-        const response = await fetch('https://ferreteria-posta-production.up.railway.app/api/crear-preferencia', {
+        const response = await fetch('https://ferreonline-production.up.railway.app/api/crear-preferencia', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ carrito: carritoLimpio })
