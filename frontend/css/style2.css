@@ -113,12 +113,14 @@ body {
     background: white;
     padding: 20px;
     border-radius: 10px;
+    
   }
   
   .carrito-container h1 {
     margin-bottom: 20px;
     font-size: 28px;
     color: #333;
+    
   }
   
   .producto-carrito {
@@ -130,11 +132,13 @@ body {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
+    
   }
   
   .producto-info {
     flex: 1;
     margin-left: 15px;
+    overflow-x: hidden;
   }
   
   .producto-info h2 {
@@ -157,18 +161,24 @@ body {
   
   .cantidad-controles {
     display: flex;
+    flex-direction: row; /* Cambiado a fila para que estén en línea */
+    gap: 10px;           /* Espacio entre botones */
+    flex-wrap: wrap;     /* Permite que se muevan a otra línea en móviles */
+    justify-content: center; /* Centrar botones */
     align-items: center;
-    gap: 10px;
   }
   
   .cantidad-controles button {
-    background-color: #4caf50;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s;
+      padding: 8px 12px; /* Tamaño ajustado */
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  color: white;
+  min-width: 70px; /* Ancho mínimo */
+  flex-grow: 1;    /* Ocupa espacio disponible */
+  max-width: 100px; /* Máximo ancho para no crecer demasiado */
   }
   
   .cantidad-controles button:hover {
@@ -340,6 +350,16 @@ body {
       white-space: nowrap;
       z-index: 3;
     }
+
+
+    @media (max-width: 480px) {
+  .cantidad-controles button {
+    min-width: 50px;
+    font-size: 12px;
+    padding: 6px 8px;
+    max-width: 80px;
+  }
+  }
   
     /* Opcional: Espaciado para que no quede pegado al header */
     .carrito-container {
