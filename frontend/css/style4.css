@@ -1,93 +1,91 @@
 /* Reset básico */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
   display: flex;
-  min-height: 100vh;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-
-  /* Fondo con superposición oscura */
+  min-height: 100vh;
   background: 
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://rare-gallery.com/thumbs/883256-Tools-Gray-background-Template-greeting-card.jpg');
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+    url('https://rare-gallery.com/thumbs/883256-Tools-Gray-background-Template-greeting-card.jpg') no-repeat center center;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  padding: 20px;
 }
 
-h2 {
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+form h2 {
   text-align: center;
   color: #2c5234;
-  margin-bottom: 50px;
-  font-weight: 700;
+  margin-bottom: 30px;
   font-size: 2rem;
-}
-
-form {
-  background: white;
-  padding: 30px 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 400px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 input[type="text"],
 input[type="tel"],
 input[type="email"] {
   width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 20px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
   border: 2px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
-  font-family: inherit;
+  transition: border 0.3s ease;
+  background-color: #f9f9f9;
 }
 
 input[type="text"]:focus,
 input[type="tel"]:focus,
 input[type="email"]:focus {
   border-color: #4caf50;
+  background-color: #fff;
   outline: none;
 }
 
 button[type="submit"] {
   width: 100%;
-  padding: 14px 0;
-  background-color: #4caf50;
-  color: black;
+  padding: 14px;
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 1.2rem;
-  font-weight: 700;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: inherit;
+  transition: background 0.3s ease, transform 0.2s;
 }
 
 button[type="submit"]:hover {
-  background-color: #388e3c;
+  background: linear-gradient(135deg, #45a049, #2e7d32);
+  transform: translateY(-2px);
 }
 
 /* Responsive */
 @media (max-width: 480px) {
-  h2 {
-    font-size: 1.6rem;
-  }
-  
-  form {
+  .container {
     padding: 25px 20px;
   }
-  
+
+  form h2 {
+    font-size: 1.6rem;
+  }
+
   button[type="submit"] {
     font-size: 1rem;
   }
