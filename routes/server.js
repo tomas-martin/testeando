@@ -6,14 +6,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }, // Importante para Railway
+  connectionString: process.env.DATABASE_URL, 
+  ssl: { rejectUnauthorized: false },
 });
 
+// Ruta POST para insertar cliente en tabla "clien"
 app.post('/api/clientes', async (req, res) => {
   const { nombre_apellido, direccion, telefono, correo } = req.body;
 
@@ -23,7 +25,7 @@ app.post('/api/clientes', async (req, res) => {
 
   try {
     const query = `
-      INSERT INTO clientes (nombre_apellido, direccion, telefono, correo)
+      INSERT INTO clien (id, nombre_apellido, direccion, telefono, correo)
       VALUES ($1, $2, $3, $4) RETURNING id;
     `;
     const values = [nombre_apellido, direccion, telefono, correo];
@@ -38,6 +40,7 @@ app.post('/api/clientes', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });

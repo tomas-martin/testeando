@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import productosRoutes from './routes/productos.js';
+import serverRoutes from './routes/server.js';
 import { MercadoPagoConfig, Preference } from 'mercadopago';
 
 dotenv.config();
@@ -18,6 +19,8 @@ const preferenceClient = new Preference(client);
 
 // 🛒 Rutas de productos
 app.use('/api/productos', productosRoutes);
+app.use('api/clientes', serverRoutes);
+
 
 // 🧩 Ruta para crear preferencia de pago
 app.post('/api/crear-preferencia', async (req, res) => {
