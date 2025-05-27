@@ -220,7 +220,18 @@
 
     actualizarCarrito();
 
-    document.getElementById('btnPagar').addEventListener('click', pagarConMercadoPago);
+    document.getElementById('btnPagar').addEventListener('click', function () {
+      const usuario = localStorage.getItem('usuario');
+
+      if (!usuario) {
+        mostrarNotificacion('Debes iniciar sesión para continuar con la compra.');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 1500);
+      } else {
+        pagarConMercadoPago();
+      }
+    });
 
     async function pagarConMercadoPago() {
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
