@@ -19,8 +19,7 @@ const preferenceClient = new Preference(client);
 
 // 🛒 Rutas de productos
 app.use('/api/productos', productosRoutes);
-app.use('api/clientes', serverRoutes);
-
+app.use('/api/clientes', serverRoutes);
 
 // 🧩 Ruta para crear preferencia de pago
 app.post('/api/crear-preferencia', async (req, res) => {
