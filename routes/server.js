@@ -17,18 +17,20 @@ const pool = new Pool({
 
 // Ruta POST para insertar cliente en tabla "clien"
 app.post('/api/clientes', async (req, res) => {
-  const { nombre_apellido, direccion, telefono, correo } = req.body;
+  const { nombre_apellido, direccion, telefono, correo, contraseña } = req.body;
 
-  if (!nombre_apellido || !direccion || !telefono || !correo) {
+  // Validación básica
+  if (!nombre_apellido || !direccion || !telefono || !correo || !contraseña) {
     return res.status(400).json({ error: 'Faltan datos obligatorios' });
   }
 
   try {
     const query = `
-      INSERT INTO clien (id, nombre_apellido, direccion, telefono, correo)
-      VALUES ($1, $2, $3, $4) RETURNING id;
+      INSERT INTO clien (nombre_apellido, direccion, telefono, correo, contraseña)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING id;
     `;
-    const values = [nombre_apellido, direccion, telefono, correo];
+    const values = [nombre_apellido, direccion, telefono, correo, contraseña];
 
     const result = await pool.query(query, values);
 
