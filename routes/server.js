@@ -1,8 +1,9 @@
 import express from 'express';
+import express from 'express';
 import cors from 'cors';
-import { Pool } from 'pg';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
+import pool from './db.js'; // Usamos conexión local con MySQL desde db.js
 
 dotenv.config();
 
@@ -10,11 +11,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-});
 
 // Ruta POST para registrar cliente
 app.post('/api/register', async (req, res) => {
@@ -25,19 +21,15 @@ app.post('/api/register', async (req, res) => {
   }
 
   try {
-    // Hashear la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const query = `
-      INSERT INTO clien (nombre_apellido, direccion, telefono, correo, contrasena)
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING id;
+      INSERT INTO clien (nombre_apellido, direccion, telefono, correo, contraseña)
+      VALUES (?, ?, ?, ?, ?)
     `;
-    const values = [name, address, phone, email, hashedPassword];
+    const [result] = await pool.execute(query, [name, address, phone, email, hashedPassword]);
 
-    const result = await pool.query(query, values);
-
-    res.status(201).json({ success: true, id: result.rows[0].id });
+    res.status(201).json({ success: true, id: result.insertId });
   } catch (error) {
     console.error('Error al registrar cliente:', error);
     res.status(500).json({ success: false, message: 'Error interno del servidor' });
