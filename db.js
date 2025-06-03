@@ -1,9 +1,10 @@
 import mysql from 'mysql2/promise';
 
+
 const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: '', // Si tenés contraseña, escribila acá
+  password: 'root',
   database: 'ferreonline',
   waitForConnections: true,
   connectionLimit: 10,
